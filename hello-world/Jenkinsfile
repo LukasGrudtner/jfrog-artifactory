@@ -1,0 +1,17 @@
+pipeline {
+    agent any
+    stages {
+        stage('Build docker image') {
+            steps {
+                sh 'docker build -t hello-word .'
+            }
+        }
+
+        stage('Push Docker image to Artifactory') {
+            steps {
+                sh 'docker login 192.168.1.112:8889'
+                sh 'docker push 192.168.1.112:8889/hello-world/hello-world:1'
+            }
+        }
+    }
+}
